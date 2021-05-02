@@ -16,6 +16,8 @@ function addTodo(event) {
   // Create DIV for ToDo Task
   const todoDiv = document.createElement("div");
   todoDiv.classList.add("todo"); // Add a class = "todo" to the div
+  // Add todo to LocalStorage
+  saveLocalTodos(todoInput.value)
   // Create LI
   const newTodo = document.createElement("li");
   newTodo.classList.add("todo-item");
@@ -80,4 +82,15 @@ function filterTodo(e) {
         break;
     }
   });
+}
+
+function saveLocalTodos(todo) {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
